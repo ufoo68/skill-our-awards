@@ -4,11 +4,11 @@ on: [push]
 
 jobs:
   build:
-
+    name: Build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout Repo
+      uses: actions/checkout@v1
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
@@ -17,9 +17,12 @@ jobs:
       run: |
         cd functions
         yarn install
+  deploy:
+    name: Deploy
+    needs: build
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
       with:
-        args: deploy --only hosting:prod
+        args: deploy
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
