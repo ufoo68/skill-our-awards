@@ -19,6 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: yarn install, build
       run: |
+        cd functions
         yarn install
         yarn generate
     - name: deploy to Firebase Hosting
